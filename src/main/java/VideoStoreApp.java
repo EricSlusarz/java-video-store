@@ -1,25 +1,61 @@
 
+
+import java.util.Scanner;
+
 public class VideoStoreApp {
 
 	public static void main(String[] args) {
 
-		RentalCalculator calculator = new RentalCalculator();
-		Movie regular = new Movie("WCCI", "regular");
-		Movie childrens = new Movie("Up", "childrens");
-		Movie newRelease = new Movie("Dr Strnage", "new release");
-		
-		System.out.println("amount due = " + calculator.calculate(regular, 2));
-		System.out.println("amount due = " + calculator.calculate(regular, 3));
-		System.out.println("amount due = " + calculator.calculate(regular, 5));
-		
-		System.out.println("amount due = " + calculator.calculate(childrens, 3));
-		System.out.println("amount due = " + calculator.calculate(childrens, 4));
-		System.out.println("amount due = " + calculator.calculate(childrens, 5));
+		Movie regular = new RegularMovie("WCCI");
+		Movie childrens = new ChildrensMovie("Up");
+		Movie newRelease = new NewRelease("Dr Strange");
+		RentalStatement thePrintoutFromCollection = new RentalStatement();
 
-		System.out.println("amount due = " + calculator.calculate(newRelease, 1));
-		System.out.println("amount due = " + calculator.calculate(newRelease, 5));
+		Scanner input = new Scanner(System.in);
 
-		
+		boolean quit = false;
+
+		int theAmountOfDaysOfRent = 0;
+
+		while (!quit) {
+
+			System.out
+					.println("What type of movie do you want \n1 for regular \n2 for Childrens \n3 for New Release ? ");
+			String themovieyouchoose = input.next();
+			System.out.println("How many days will you rent this item for?");
+			theAmountOfDaysOfRent = input.nextInt();
+
+			switch (themovieyouchoose) {
+			case "1":
+				Rental firstRentalRegular = new Rental(regular, theAmountOfDaysOfRent);
+				thePrintoutFromCollection.add(firstRentalRegular);
+				break;
+			case "2":
+				Rental secondRentalChildrens = new Rental(childrens, theAmountOfDaysOfRent);
+				thePrintoutFromCollection.add(secondRentalChildrens);
+				break;
+			case "3":
+				Rental thirdRentalNewRelease = new Rental(newRelease, theAmountOfDaysOfRent);
+				thePrintoutFromCollection.add(thirdRentalNewRelease);
+				break;
+			default:
+				System.out.println("Please choose 1-3");
+				continue;
+			}
+
+			System.out.println("Do you want to ring up another movie(Y/N)?");
+			String anotherMovieChoose = input.next().toUpperCase();
+			if (anotherMovieChoose.equals("N")) {
+				quit = true;
+			}
+			if (anotherMovieChoose.equals("Y")) {
+			}
+
+		}
+		System.out.println("Thank you for choosing We Can Rent It!");
+
+		thePrintoutFromCollection.printthisout();
+		input.close();
 	}
 
 }

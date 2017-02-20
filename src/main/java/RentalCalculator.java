@@ -1,3 +1,5 @@
+
+
 import java.math.BigDecimal;
 
 public class RentalCalculator {
@@ -19,8 +21,8 @@ public class RentalCalculator {
 				BigDecimal extraDays = new BigDecimal(days - 3);
 				amount = amount.add(new BigDecimal("1.50").multiply(extraDays));
 			}
-		} else { //new release
-			
+		} else { // new release
+
 			BigDecimal rentalDays = new BigDecimal(days);
 			amount = new BigDecimal("3.00").multiply(rentalDays);
 
